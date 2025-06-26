@@ -31,43 +31,51 @@
 
           <div class="row">
             <div class="col">
-              <p class="text-light"><strong>Feels Like:</strong><span  class="display-6"> {{ weatherData.current.feelslike_c }}</span>°C</p>
+              <p class="text-light"><strong>Feels Like:</strong><span class="display-6"> {{
+                  weatherData.current.feelslike_c }}</span>°C</p>
             </div>
             <div class="col">
-              <p class="text-light"><strong>Humidity:</strong> <span class="display-6"> {{ weatherData.current.humidity }}</span>%</p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <p class="text-light"><strong>Wind:</strong> <span class="display-6"> {{ weatherData.current.wind_kph }} </span>kph <span class="display-6"> ({{ weatherData.current.wind_dir }})</span></p>
-            </div>
-            <div class="col">
-              <p class="text-light"><strong>Gust Speed:</strong> <span class="display-6"> {{ weatherData.current.gust_kph }}</span>kph</p>
+              <p class="text-light"><strong>Humidity:</strong> <span class="display-6"> {{ weatherData.current.humidity }} </span>%</p>
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <p class="text-light"><strong>Pressure:</strong> <span class="display-6"> {{ weatherData.current.pressure_mb }}</span>mb</p>
+              <p class="text-light"><strong>Wind:</strong> <span class="display-6"> {{ weatherData.current.wind_kph }}
+                </span> kph <span class="display-6"> ({{ weatherData.current.wind_dir }})</span></p>
             </div>
             <div class="col">
-              <p class="text-light"><strong>Visibility:</strong> <span class="display-6"> {{ weatherData.current.vis_km }}</span> km</p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <p class="text-light"><strong>Dew Point:</strong><span class="display-6"> {{ weatherData.current.dewpoint_c }}</span>°C</p>
-            </div>
-            <div class="col">
-              <p class="text-light"><strong>Heat Index:</strong> <span class="display-6">  {{ weatherData.current.heatindex_c }}</span>°C</p>
+              <p class="text-light"><strong>Gust Speed:</strong> <span class="display-6"> {{
+                  weatherData.current.gust_kph }}</span>kph</p>
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <p class="text-light"><strong>UV Index:</strong> <span class="display-6"> {{ weatherData.current.uv }}</span> </p>
+              <p class="text-light"><strong>Pressure:</strong> <span class="display-6"> {{
+                  weatherData.current.pressure_mb }}</span>mb</p>
+            </div>
+            <div class="col">
+              <p class="text-light"><strong>Visibility:</strong> <span class="display-6"> {{ weatherData.current.vis_km
+                  }}</span> km</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p class="text-light"><strong>Dew Point:</strong><span class="display-6"> {{
+                  weatherData.current.dewpoint_c }}</span>°C</p>
+            </div>
+            <div class="col">
+              <p class="text-light"><strong>Heat Index:</strong> <span class="display-6"> {{
+                  weatherData.current.heatindex_c }}</span>°C</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p class="text-light"><strong>UV Index:</strong> <span class="display-6"> {{ weatherData.current.uv
+                  }}</span> </p>
             </div>
           </div>
 
@@ -81,8 +89,7 @@
     </div>
 
   </div>
-  <div *ngIf="isLoading" class="row justify-content-center align-items-center loaderDiv " >
-    <div  class="loader"></div>
+  <div *ngIf="isLoading" class="row justify-content-center align-items-center loaderDiv ">
+    <div class="loader"></div>
   </div>
 </div>
-

@@ -7,16 +7,12 @@
 
     <div class="col-lg-6 col-md-12 ">
       <div class="input-group mb-3">
-        <input
-          class="form-control"
-          [(ngModel)]="newCategoryTitle"
-          placeholder="New Card Title"
-        />
+        <input class="form-control" [(ngModel)]="newCategoryTitle" placeholder="New Card Title" />
         <button class="btn btn-primary  " (click)="addCategory()">
           Add
         </button>
 
-    </div>
+      </div>
 
     </div>
 
@@ -30,61 +26,30 @@
   </div>
 
   <!-- Display Categories -->
-  <div
-    class="row g-3"
-    *ngIf="categories.length; else noCategory"
-    cdkDropListGroup
-  >
-    <div
-      *ngFor="let category of categories; let i = index"
-      class="col-sm-12 col-md-4 col-lg-4"
-      @fadeInOut
-    >
+  <div class="row g-3" *ngIf="categories.length; else noCategory" cdkDropListGroup>
+    <div *ngFor="let category of categories; let i = index" class="col-sm-12 col-md-4 col-lg-4" @fadeInOut>
       <div class="card shadow-sm">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
-          @slideIn
-        >
+        <div class="card-header d-flex justify-content-between align-items-center" @slideIn>
           <div *ngIf="editingCategoryIndex === i; else viewCategoryMode">
-            <input
-              [(ngModel)]="categories[i].title"
-              class="form-control"
-              placeholder="Edit Card Title"
-            />
+            <input [(ngModel)]="categories[i].title" class="form-control" placeholder="Edit Card Title" />
           </div>
           <ng-template #viewCategoryMode>
             <h5 class="card-title mb-0">{{ category.title }}</h5>
           </ng-template>
           <div class="d-flex">
-            <button
-              class="btn btn-sm btn-warning me-2"
-              *ngIf="editingCategoryIndex !== i"
-              (click)="editCategory(i)"
-            >
+            <button class="btn btn-sm btn-warning me-2" *ngIf="editingCategoryIndex !== i" (click)="editCategory(i)">
               Edit
             </button>
-            <button
-              class="btn btn-sm btn-success me-2"
-              *ngIf="editingCategoryIndex === i"
-              (click)="saveCategory(i)"
-            >
+            <button class="btn btn-sm btn-success me-2" *ngIf="editingCategoryIndex === i" (click)="saveCategory(i)">
               Save
             </button>
-            <button
-              class="btn btn-sm btn-danger"
-              (click)="deleteCategory(i)"
-              title="Delete Category"
-            >
+            <button class="btn btn-sm btn-danger" (click)="deleteCategory(i)" title="Delete Category">
               <i class="fa fa-trash text-danger"></i>
             </button>
           </div>
         </div>
         <div class="card-body">
-          <input
-            class="form-control mb-2"
-            [(ngModel)]="category.taskInput"
-            placeholder="Add a new task"
-          />
+          <input class="form-control mb-2" [(ngModel)]="category.taskInput" placeholder="Add a new task" />
           <!-- Display error message for the task field -->
           <div *ngIf="errorMessage === 'task-' + i" class="text-danger mt-1">
             Please enter a task!
@@ -92,39 +57,23 @@
           <button class="btn btn-success w-100 mb-3" (click)="addTask(i)">
             Add Task
           </button>
-          <div
-            cdkDropList
-            [cdkDropListData]="category.tasks"
-            [cdkDropListConnectedTo]="getConnectedLists()"
-            class="task-list border rounded p-2"
-            (cdkDropListDropped)="dropTask($event, i)"
-            id="category-{{ i }}"
-            cdkDragAnimate
-          >
+          <div cdkDropList [cdkDropListData]="category.tasks" [cdkDropListConnectedTo]="getConnectedLists()"
+            class="task-list border rounded p-2" (cdkDropListDropped)="dropTask($event, i)" id="category-{{ i }}"
+            cdkDragAnimate>
             <div *ngIf="category.tasks.length > 0; else noTasks">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let task of category.tasks;
                   let j = index;
                   trackBy: trackTask
-                "
-                cdkDrag
-                class="task-item d-flex align-items-center mb-2 p-2 border position-relative"
-              >
+                " cdkDrag class="task-item d-flex align-items-center mb-2 p-2 border position-relative">
                 <!-- Task Content -->
                 <div class="task-content flex-grow-1">
-                  <div
-                    *ngIf="
+                  <div *ngIf="
                       editingTaskIndex === j && editingTaskCategoryIndex === i;
                       else viewTaskMode
-                    "
-                  >
-                    <input
-                      [(ngModel)]="categories[i].tasks[j]"
-                      (ngModelChange)="updateTask($event, i, j)"
-                      class="form-control"
-                      placeholder="Edit Task"
-                    />
+                    ">
+                    <input [(ngModel)]="categories[i].tasks[j]" (ngModelChange)="updateTask($event, i, j)"
+                      class="form-control" placeholder="Edit Task" />
                   </div>
                   <ng-template #viewTaskMode>
                     <span class="task-text">{{ task }}</span>
@@ -133,44 +82,25 @@
 
                 <!-- Task Actions -->
                 <div class="d-flex align-items-center margin ms-2 task-btn">
-                  <button
-                    class="btn btn-sm btn-warning me-2 mt-1"
-                    *ngIf="
+                  <button class="btn btn-sm btn-warning me-2 mt-1" *ngIf="
                       editingTaskIndex !== j || editingTaskCategoryIndex !== i
-                    "
-                    (click)="editTask(i, j)"
-                  >
+                    " (click)="editTask(i, j)">
                     Edit
                   </button>
-                  <button
-                    class="btn btn-sm btn-success me-2 mt-1"
-                    *ngIf="
+                  <button class="btn btn-sm btn-success me-2 mt-1" *ngIf="
                       editingTaskIndex === j && editingTaskCategoryIndex === i
-                    "
-                    (click)="saveTask(i, j)"
-                  >
+                    " (click)="saveTask(i, j)">
                     Save
                   </button>
-                  <button
-                    class="btn btn-sm btn-danger me-2 mt-1"
-                    (click)="deleteTask(i, j)"
-                    title="Delete Task"
-                  >
+                  <button class="btn btn-sm btn-danger me-2 mt-1" (click)="deleteTask(i, j)" title="Delete Task">
                     <i class="fa fa-trash text-danger"></i>
                   </button>
 
                   <!-- Dropdown for Moving Task -->
                   <div class="task-move">
-                    <select
-                      class="form-select form-select-sm"
-                      (change)="moveTask(i, j, $event)"
-                    >
+                    <select class="form-select form-select-sm" (change)="moveTask(i, j, $event)">
                       <option value="" selected disabled>Move to...</option>
-                      <option
-                        *ngFor="let cat of categories; let k = index"
-                        [value]="k"
-                        [disabled]="i === k"
-                      >
+                      <option *ngFor="let cat of categories; let k = index" [value]="k" [disabled]="i === k">
                         {{ cat.title }}
                       </option>
                     </select>

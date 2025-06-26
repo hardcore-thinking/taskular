@@ -1,0 +1,112 @@
+/* User List Card */
+.user-list {
+	background: #212121;
+	/* Darker card background */
+	border-radius: 10px;
+	box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+	padding: 10px;
+	min-height: 60vh;
+	max-height: 70vh;
+	overflow-y: scroll;
+	z-index: 1;
+}
+
+.no-users-container {
+	min-height: 60vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.no-users-container p {
+	line-height: 1;
+}
+
+.no-users-icon {
+	font-size: 50px;
+}
+
+/* User Item */
+.user-item {
+	background: #2c2c2c;
+	border-radius: 5px;
+	transition: all 0.3s ease-in-out;
+	color: #ffffff;
+	border: 1px solid #3a3a3a;
+	border: 2px solid b;
+	border: 1px solid grey !important;
+}
+
+.user-item:hover {
+	background: #333333;
+}
+
+/* Completed users */
+.user-completed {
+	color: #ffffff;
+	text-decoration: line-through;
+	border: 1px solid #4caf50 !important;
+}
+
+/* User Icon */
+.user-icon {
+	color: #66bb6a;
+}
+
+/* Add User Input */
+
+/* Dropdown Button */
+.dropdown-toggle {
+	background: none;
+	border: none;
+}
+
+.dropdown-menu {
+	background: #333333;
+	border: 1px solid #444;
+}
+
+.dropdown-item {
+	color: #ffffff;
+}
+
+.dropdown-item:hover {
+	background: #444444;
+}
+
+/* Remove List Bullet Points */
+.list-group {
+	border-radius: 10px;
+}
+
+.list-group-item {
+	background: #2c2c2c;
+	border: none;
+	color: #ffffff;
+}
+
+.list-group-item:hover {
+	background: #333333;
+}
+
+.container-user {
+	width: 50%;
+	margin: auto;
+	margin-top: -25px;
+	z-index: 2;
+}
+
+@media (max-width: 1024px) {
+	.container-user {
+		width: 80%;
+
+	}
+}
+
+@media (max-width: 576px) {
+	.container-user {
+		width: 100%;
+
+	}
+}

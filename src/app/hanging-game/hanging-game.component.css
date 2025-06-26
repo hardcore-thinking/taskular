@@ -1,86 +1,91 @@
 /* Hangman Container */
 .hangman-container {
-  text-align: center;
-  padding: 20px;
-  max-width: 500px;
-  margin: auto;
-  background: #1a1a1d;
-  color: white;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
+	text-align: center;
+	padding: 20px;
+	max-width: 500px;
+	margin: auto;
+	background: #1a1a1d;
+	color: white;
+	border-radius: 10px;
+	box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
 }
 
 /* Hangman Figure */
 .hangman-figure img {
-  width: 200px;
-  height: 200px;
-  margin: 10px 0;
+	width: 200px;
+	height: 200px;
+	margin: 10px 0;
 }
+
 @media (max-width: 576px) {
-  .hangman-figure img {
-    width: 160px;
-    height: 160px;
-    margin: 10px 0;
-  }
+	.hangman-figure img {
+		width: 160px;
+		height: 160px;
+		margin: 10px 0;
+	}
 }
+
 /* Word Display */
 .word-display {
-  font-size: 2rem;
-  letter-spacing: 10px;
-  font-weight: bold;
-  color: goldenrod;
-  margin: 20px 0;
+	font-size: 2rem;
+	letter-spacing: 10px;
+	font-weight: bold;
+	color: goldenrod;
+	margin: 20px 0;
 }
 
 /* Letters */
 .letters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .letters button {
-  padding: 10px;
-  margin: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  background: goldenrod;
-  border: 2px solid darkgoldenrod;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
+	padding: 10px;
+	margin: 5px;
+	font-size: 1rem;
+	font-weight: bold;
+	background: goldenrod;
+	border: 2px solid darkgoldenrod;
+	color: white;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: 0.3s;
 }
 
 .letters button:disabled {
-  background: gray;
-  color: #fff;
-  cursor: not-allowed;
+	background: gray;
+	color: #fff;
+	cursor: not-allowed;
 }
 
 /* Game Status */
 .game-status {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 15px;
-  color: white;
-  animation: fadeIn 1s;
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding: 15px;
+	color: white;
+	animation: fadeIn 1s;
 }
 
 .game-status.win {
-  color: limegreen;
+	color: limegreen;
 }
 
 .game-status.lose {
-  color: red;
+	color: red;
 }
-
-
-
-
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

@@ -1,29 +1,21 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
   <div class="container-fluid">
-    <a
-      class="navbar-brand text-goldenrod"
-      routerLink="/"
-      [attr.contenteditable]="isEditing ? 'true' : 'false'"
-      (dblclick)="enableEditing()"
-      (blur)="saveAppName($event)"
-      #appNameElement>
+    <a class="navbar-brand text-goldenrod" routerLink="/" [attr.contenteditable]="isEditing ? 'true' : 'false'"
+      (dblclick)="enableEditing()" (blur)="saveAppName($event)" #appNameElement>
       {{ appName }}
     </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item" [class.active]="currentRoute === '/users'">
+          <a class="nav-link" routerLink="/users" (click)="closeNavbar()">Users</a>
+        </li>
         <li class="nav-item" [class.active]="currentRoute === '/tasks'">
           <a class="nav-link" routerLink="/tasks" (click)="closeNavbar()">Task Cards</a>
         </li>
@@ -49,12 +41,7 @@
         <h5 class="modal-title" id="userNameModalLabel">Enter Your Name</h5>
       </div>
       <div class="modal-body">
-        <input
-          type="text"
-          class="form-control dark-input"
-          [(ngModel)]="tempUserName"
-          placeholder="Enter your name"
-        />
+        <input type="text" class="form-control dark-input" [(ngModel)]="tempUserName" placeholder="Enter your name" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="saveUserName()">Save</button>
@@ -62,5 +49,3 @@
     </div>
   </div>
 </div>
-
-

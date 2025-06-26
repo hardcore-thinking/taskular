@@ -15,25 +15,15 @@
   <div *ngIf="tasks.length > 0; else noTasks" class="task-list card p-3 shadow">
     <!-- Task List -->
     <ul class="list-group">
-      <li
-        *ngFor="let task of tasks; let i = index"
+      <li *ngFor="let task of tasks; let i = index"
         class="list-group-item task-item d-flex align-items-center justify-content-between mt-2"
-        [ngClass]="{ 'task-completed': task.completed }"
-      >
+        [ngClass]="{ 'task-completed': task.completed }">
         <!-- Editable Task Input -->
-        <input
-          *ngIf="task.editing"
-          type="text"
-          [(ngModel)]="task.text"
-          class="form-control form-control-sm me-2"
-        />
+        <input *ngIf="task.editing" type="text" [(ngModel)]="task.text" class="form-control form-control-sm me-2" />
 
         <!-- Task Display -->
-        <span
-          *ngIf="!task.editing"
-          (click)="toggleTaskCompletion(i)"
-          class="task-text flex-grow-1"
-        >
+        <span *ngIf="!task.editing" (click)="toggleTaskCompletion(i)" (keydown)="toggleTaskCompletion(i)"
+          class="task-text flex-grow-1">
           <i class="fas fa-check-circle task-icon me-2" *ngIf="task.completed"></i>
           {{ task.text }}
         </span>
@@ -41,22 +31,14 @@
         <!-- Task Actions -->
         <div class="d-flex align-items-center">
           <!-- Save Button -->
-          <button
-            *ngIf="task.editing"
-            class="btn btn-sm btn-primary me-2 mt-2 p-2"
-            (click)="toggleEditTask(i)"
-          >
+          <button *ngIf="task.editing" class="btn btn-sm btn-primary me-2 mt-2 p-2" (click)="toggleEditTask(i)">
             <i class="fas fa-save"></i>
           </button>
 
           <!-- Dropdown Menu -->
           <div class="dropdown">
-            <button
-              class="btn btn-sm btn-outline-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            ></button>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false"></button>
             <ul class="dropdown-menu">
               <li>
                 <button class="dropdown-item" (click)="toggleTaskCompletion(i)">
@@ -69,10 +51,7 @@
                 </button>
               </li>
               <li>
-                <button
-                  class="dropdown-item text-danger"
-                  (click)="deleteTask(i)"
-                >
+                <button class="dropdown-item text-danger" (click)="deleteTask(i)">
                   Delete
                 </button>
               </li>
@@ -93,14 +72,9 @@
 
   <!-- Add Task Input -->
   <div class="input-group mb-3 container-task">
-    <input
-      type="text"
-      [(ngModel)]="newTask"
-      class="form-control  "
-      placeholder="Add a new task..."
-    />
+    <input type="text" [(ngModel)]="newTask" class="form-control  " placeholder="Add a new task..." />
     <button (click)="addTask()" class="btn btn-primary">
-     Add Task
+      Add Task
     </button>
   </div>
 </div>
