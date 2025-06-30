@@ -1,0 +1,16 @@
+footer {
+	margin-top: 20px;
+	text-align: center;
+	padding: 17px;
+	color: red;
+	background-color: #333;
+}
+
+footer p {
+	margin: auto;
+	color: grey;
+	font-family: "Rubik Wet Paint", serif;
+	font-weight: 400;
+	font-style: normal;
+	word-spacing: 6px;
+}
