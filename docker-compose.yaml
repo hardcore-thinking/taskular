@@ -1,0 +1,130 @@
+services:
+  web:
+    restart: always
+    container_name: taskular-web
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - "4201:4200"
+    
+  db:
+    image: postgres:alpine
+    restart: always
+    container_name: taskular-db
+    environment:
+      POSTGRES_USER: taskular
+      POSTGRES_PASSWORD: taskular
+      POSTGRES_DB: taskular_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  db-admin:
+    image: adminer:5.3.0
+    restart: always
+    container_name: taskular-db-admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  api:
+    image: php:8.4-cli
+    restart: always
+    container_name: taskular-api
+    environment:
+      DB_HOST: db
+      DB_USER: taskular
+      DB_PASSWORD: taskular
+      DB_NAME: taskular_db
+    volumes:
+      - ./api:/var/www/html
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  log-analyze:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+    restart: always
+    container_name: taskular-log-analyse
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: false
+      xpack.watcher.enabled: false
+      xpack.monitoring.collection.enabled: true
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elk
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1G
+        reservations:
+          cpus: '0.10'
+          memory: 512M
+
+  log-visualize:
+    restart: always
+    container_name: taskular-log-visualize
+    build:
+      context: ./kibana
+      dockerfile: Dockerfile
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      log-analyze:
+        condition: service_healthy
+    environment:
+      ELASTICSEARCH_HOSTS: http://elastic-search:9200
+      ELASTICSEARCH_URL: http://elastic-search:9200
+      KIBANA_SYSTEM_PASSWORD: ""
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5601/api/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 80s
+    links:
+      - log-analyze:elastic-search
+
+  log-ingest:
+    image: docker.elastic.co/logstash/logstash:9.0.0
+    restart: always
+    container_name: taskular-log-ingest
+    volumes:
+      - ./logstash_config:/usr/share/logstash/config
+    ports:
+      - "5044:5044"
+    networks:
+      - elk
+    depends_on:
+      log-analyze:
+        condition: service_healthy  # Wait for Elasticsearch
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+networks:
+  default:
+    driver: bridge
+
+  elk:
+    driver: bridge
