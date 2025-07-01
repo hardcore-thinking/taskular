@@ -22,6 +22,12 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskular -d taskular_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   db-admin:
     image: adminer:5.3.0
@@ -33,20 +39,27 @@ services:
       - db
 
   api:
-    image: php:8.4-cli
     restart: always
     container_name: taskular-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     environment:
+      DB_CONNECTION: pgsql
       DB_HOST: db
+      DB_PORT: 5432
       DB_USER: taskular
       DB_PASSWORD: taskular
       DB_NAME: taskular_db
     volumes:
       - ./api:/var/www/html
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    links:
+      - db:db
 
   log-analyze:
     image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
