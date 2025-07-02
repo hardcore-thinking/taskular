@@ -34,3 +34,6 @@ testem.log
 Thumbs.db
 
 .vscode
+postgres_data
+elasticsearch_data
+logstash_config
