@@ -1,7 +1,11 @@
 FROM composer:2.8.9
 
+RUN adduser -D -u 1000 taskular
+
 RUN apk add --no-cache libpq-dev && \
     docker-php-ext-install pdo_pgsql pgsql
+
+USER taskular
 
 COPY ./php.ini /usr/local/etc/php
 
@@ -26,9 +30,13 @@ COPY ./vite.config.js /api/
 
 WORKDIR /api
 
+USER root
+
 RUN composer update --no-interaction && \
     composer install --no-interaction --optimize-autoloader && \
     php artisan key:generate && \
     php artisan optimize
+
+USER taskular
 
 CMD ["php", "artisan", "serve", "--host=0.0.0.0" ]
