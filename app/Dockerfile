@@ -17,7 +17,7 @@ COPY tsconfig.spec.json /var/www/app/
 WORKDIR /var/www/app
 
 USER root
-RUN npm install --ignore-scripts && npm install -g @angular/cli --ignore-scripts && ng build
+RUN npm install --ignore-scripts && npm install --ignore-scripts -g @angular/cli && ng build
 
 USER node
 EXPOSE 4201
