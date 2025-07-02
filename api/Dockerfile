@@ -1,11 +1,9 @@
 FROM composer:2.8.9
 
-RUN adduser -D -u 1000 taskular
-
 RUN apk add --no-cache libpq-dev && \
     docker-php-ext-install pdo_pgsql pgsql
 
-USER taskular
+USER www-data
 
 COPY ./php.ini /usr/local/etc/php
 
@@ -37,6 +35,6 @@ RUN composer update --no-interaction && \
     php artisan key:generate && \
     php artisan optimize
 
-USER taskular
+USER www-data
 
 CMD ["php", "artisan", "serve", "--host=0.0.0.0" ]
