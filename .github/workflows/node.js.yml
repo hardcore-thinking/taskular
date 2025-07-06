@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: ls
     - run: npm i
       working-directory: ./app
     - run: npm i --ignore-scripts -g @angular/cli
