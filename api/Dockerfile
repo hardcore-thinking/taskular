@@ -25,6 +25,7 @@ COPY ./composer.json /api/
 COPY ./package.json /api/
 COPY ./phpunit.xml /api/
 COPY ./vite.config.js /api/
+COPY ./wait-for-it.sh /api/
 
 WORKDIR /api
 
@@ -32,9 +33,11 @@ USER root
 
 RUN composer update --no-interaction && \
     composer install --no-interaction --optimize-autoloader && \
+    rm -rf bootstrap/cache/* && \
+    php artisan config:clear && \
+    php artisan cache:clear ; \
+    php artisan config:cache && \
     php artisan key:generate && \
     php artisan optimize
 
-USER www-data
-
-CMD ["php", "artisan", "serve", "--host=0.0.0.0" ]
+CMD ["sh", "-c", "php artisan migrate:fresh && php artisan serve --host=0.0.0.0"]

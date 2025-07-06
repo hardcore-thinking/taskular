@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\TaskModel;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController
 {
@@ -12,21 +13,43 @@ class TaskController
      */
     public function index()
     {
-        //
+        $tasks = TaskModel::all();
+        return response()->json($tasks);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(TaskRequest $request)
+    {
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        //
+        TaskModel::create([
+            'title' =>  $request->input('title', 'Default Task Title'),
+            'completed' => false
+        ]);
+
+        return response()->json(['message' => 'Task created successfully'], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(TaskModel $taskModel)
+    public function show(Task $task)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Task $task)
     {
         //
     }
@@ -34,7 +57,7 @@ class TaskController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TaskModel $taskModel)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         //
     }
@@ -42,7 +65,7 @@ class TaskController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TaskModel $taskModel)
+    public function destroy(Task $task)
     {
         //
     }

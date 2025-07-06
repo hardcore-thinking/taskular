@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     environment:
       NODE_ENV: production
+    volumes:
+      - npm-modules:/var/www/app/node_modules
     ports:
       - "4201:4200"
     
@@ -24,10 +26,12 @@ services:
       - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U taskular -d taskular_db"]
-      interval: 30s
+      interval: 10s
       timeout: 10s
+      start_period: 30s
       retries: 5
-      start_period: 60s
+    networks:
+      - default
 
   db-admin:
     image: adminer:5.3.0
@@ -46,20 +50,20 @@ services:
       dockerfile: Dockerfile
     environment:
       DB_CONNECTION: pgsql
-      DB_HOST: db
+      DB_HOST: taskular-db
       DB_PORT: 5432
-      DB_USER: taskular
+      DB_USERNAME: taskular
       DB_PASSWORD: taskular
-      DB_NAME: taskular_db
+      DB_DATABASE: taskular_db
     volumes:
-      - ./api:/var/www/html
+      - php-vendor:/api/vendor
     ports:
       - "8001:8000"
     depends_on:
       db:
-        condition: service_healthy
-    links:
-      - db:db
+        condition: service_healthy  # Wait for PostgreSQL
+    networks:
+      - default
 
   log-analyze:
     image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
@@ -141,3 +145,7 @@ networks:
 
   elk:
     driver: bridge
+
+volumes:
+  php-vendor:
+  npm-modules:
