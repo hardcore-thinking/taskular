@@ -13,13 +13,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -32,6 +29,7 @@ jobs:
     - run: npm i
     - run: npm i --ignore-scripts -g @angular/cli
     - run: ng build
+      working-directory: ./app
     #- run: npm ci
     #- run: npm run build --if-present
     #- run: npm test
