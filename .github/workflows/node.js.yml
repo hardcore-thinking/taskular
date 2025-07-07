@@ -27,14 +27,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - run: pwd
-    - run: ls
-    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm ci --no-package-lock
     - run: npm run build --if-present
     - run: npm test
