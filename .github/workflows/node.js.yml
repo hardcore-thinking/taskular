@@ -14,21 +14,26 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./app/
+
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.17]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - run: pwd
+    - run: ls
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i
-    - run: npm i --ignore-scripts -g @angular/cli
-    - run: ng build
-    #- run: npm ci
-    #- run: npm run build --if-present
-    #- run: npm test
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
