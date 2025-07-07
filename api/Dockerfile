@@ -40,4 +40,6 @@ RUN composer update --no-interaction && \
     php artisan key:generate && \
     php artisan optimize
 
+USER www-data
+
 CMD ["sh", "-c", "php artisan migrate:fresh && php artisan serve --host=0.0.0.0"]
